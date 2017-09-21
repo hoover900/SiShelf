@@ -1,335 +1,335 @@
 # SiShelf [Var.1.7.1]
 
-![SiShelf](/images/01.png)
+! [SiShelf] (/ images / 01.png)
 
-Softimageのシェルフをリスペクトして作成されたMaya用のシェルフツールです。  
-見た目のカスタマイズや自由な配置が行え、標準のシェルフツールよりも自分好みのシェルフを作成出来ます。  
-また、Mayaメインウインドウにドッキングした状態だけでなく、フローティングウインドウとしても利用できます。  
-XPOPモードを活用すれば画面領域を占有することなくスムーズな作業が行えるでしょう。
+A shelf tool for Maya created by respecting Softimage's shelf.  
+You can customize appearance and arrange freely, you can create your own shelf over the standard shelf tool.  
+It can also be used as a floating window as well as docked in the Maya main window.  
+If you use XPOP mode you will be able to do smooth work without occupying the screen area.
 
-## バージョン1.0から1.1以降への移行手順
+## Transition procedure from version 1.0 to 1.1 or later
 
-初期型のバージョン1.0では手動でuserSetup.pyにコードを記述していましたが、1.1からは指定の場所にフォルダを置くだけで良くなりました。
-1.0を導入した方は以下の手順で1.1へと移行してください。  
+Version 1.0 of the initial version described the code manually in userSetup.py, but from 1.1 it is enough to just place the folder in the specified location.
+If you introduced 1.0, please move to 1.1 by the following procedure.  
 
-1. SiShelf[Var.1.0]フォルダの直下にあるdataフォルダを `C:\Users\ユーザー名\Documents\maya` へ `SiShelf_data` とリネームして移動させる。
-2. userSetup.pyに追記した部分を削除。
-3. 下記インストール項目の手順でVar.1.1をインストール
+1. Rename and move the data folder under the SiShelf [Var.1.0] folder to `C: \ Users \ user name \ Documents \ maya` as` SiShelf_data`.
+2. Deleted the part added to userSetup.py.
+3. Install Var.1.1 by the procedure of the following installation items
 
-## インストール
+## Installation
 
-1. Clone or download > Download ZIP からZIPファイルをダウンロードしてください。
+1. Clone or download> Download Please download the ZIP file from ZIP.
 
-2. 解凍したSiShelfフォルダを `C:\Program Files\Autodesk\ApplicationPlugins` へコピーしてください。  
-MayaをCドライブ以外にインストールしている場合でもSiShelfフォルダは `C:\Program Files\Autodesk\ApplicationPlugins` に置く必要があるようです。  
-判断に迷ったらボーナスツールと同じ場所に入れて下さい。
+2. Copy the unzipped SiShelf folder to `C: \ Program Files \ Autodesk \ ApplicationPlugins`.  
+Even if Maya is installed on a drive other than drive C, it seems that SiShelf folder needs to be placed in `C: \ Program Files \ Autodesk \ ApplicationPlugins`.  
+If you get confused, please put it in the same place as the bonus tool.
 
 
-+ ApplicationPluginsフォルダが存在しない場合は作成してください。
++ Create ApplicationPlugins folder if it does not exist.
 
-+ 複数バージョンのMayaに対応しています。2014以降のバージョンでは自動的に認識されツールが使える状態になります。
++ It corresponds to multiple versions of Maya. In version 2014 and later, it is recognized automatically and the tool is ready to use.
 
-+ 不要になった場合はフォルダを削除してください。
++ Delete the folder if it becomes unnecessary.
 
-+ バージョンアップの際は上書きではなく、一度SiShelfフォルダを削除すると安全です。
++ It is safe to delete the SiShelf folder once, not overwrite when upgrading.
 
-## 実行
+## Execution
 
-メインメニュー > Windows > SiShelf から開くことが可能です。もしくは Hotkey Editor > Custom Scripts > SiShelf からホットキーを割り振ることもできます。  
+It is possible to open it from main menu> Windows> SiShelf. You can also assign hot keys from Hotkey Editor> Custom Scripts> SiShelf.  
 
-![SiShelf](/images/09.png)
+! [SiShelf] (/ images / 09.png)
 
 
-## 使い方
+## How to use
 
-### Mayaウインドウへのドッキング
+### Docking to the Maya window
 
-SiShelfはMayaのウインドウにドッキングすることができます。  
-ドッキングした状態でMayaを終了すると状態が保存され、次回ドッキングした状態でMayaが起動します。  
+SiShelf can dock in Maya's window.  
+When you exit Maya with docking, the state is saved and Maya will start up in the next docked state.  
 
-![SiShelf](/images/04.png)
+! [SiShelf] (/ images / 04.png)
 
-### XPOPモード
+### XPOP mode
 
-シェルフに登録された項目をコンパクトなメニューとして表示するモードです。  
-シェルフは画面領域を占有して気にくわない！という方におススメです。  
-マウスカーソルの位置にメニューが表示されるので、ホットキーに登録しておけばスムーズな作業が行えるでしょう。
-ホットキーのコードを独自に設定すれば特定のタブの内容のみを表示することができます。  
-詳しくは「コードから実行」の項目を参照してください。
+It is a mode to display items registered in the shelf as compact menus.  
+The shelf does not care about occupying the screen area! I recommend you to those who say.  
+Since the menu is displayed at the position of the mouse cursor, if you register it as a hot key it will be able to do smooth work.
+If you set the code of the hot key yourself, you can display only the contents of a specific tab.  
+For details, refer to the item "Execute from code".
 
-![SiShelf](/images/12.png)
+! [SiShelf] (/ images / 12.png)
 
-アイコンなどもシェルフで登録したものが表示されます。  
-XPOPは初期設定ではボタンを作成した順番で表示されます。  
-これを変更したい場合はシェルフモードのコンテキストメニュー XPOP Setting から設定を行ってください。
+Icons etc are also registered on the shelf will be displayed.  
+By default, XPOP is displayed in the order in which buttons were created.  
+If you want to change this, please set from the context menu XPOP Setting in shelf mode.
 
-![SiShelf](/images/15.gif)
+! [SiShelf] (/ images / 15.gif)
 
-表示の順番、表示するかどうか、スペーサーを挟み込むかどうかを設定可能です。
+You can set the display order, whether or not to display, and whether or not to put the spacer in between.
 
-Shelfのコンテキストメニュー>Option から見た目のカスタマイズを行うことができます。  
+You can customize appearance from Shelf 's context menu> Option.  
 
-![SiShelf](/images/16.gif)
+! [SiShelf] (/ images / 16.gif)
 
-お好みの見た目に変更してみてください。  
-Customizeのチェックを外すと標準の見た目にすることも可能です。
+Please change to the appearance of your choice.  
+If you uncheck Customize you can also make it look like a standard.
 
-### ボタンの登録
+### Registering Buttons
 
-シェルフにツールを登録する方法は以下の２つです。
+There are two ways to register the tool on the shelf as follows.
 
-+ テキストを選択してシェルフにドラッグ＆ドロップ
-+ ファイルをシェルフにドラッグ＆ドロップ（.melファイル、.pyファイルに対応）
++ Select text and drag and drop it to the shelf
++ Drag & drop files to shelf (.mel file, corresponding to .py file)
 
-![SiShelf](/images/02.png)
+! [SiShelf] (/ images / 02.png)
 
-ボタンの設定ウインドウが表示されるので任意の情報を入力してOKを押すとボタンが作成されます。  
-※ラベルやツールチップは改行または入力欄からフォーカスが外れるとプレビューに反映されます（バグ回避の為）
+Since the setting window of the button is displayed, enter arbitrary information and press OK to create the button.  
+※ Labels and tool tips are reflected in the preview when the focus goes out of line feed or input field (to avoid bugs)
 
-![SiShelf](/images/03.gif)
+! [SiShelf] (/ images / 03.gif)
 
 
-マウスの左クリックでスクリプトを実行できます。  
-マウスを押した瞬間ではなく、話した瞬間に実行されます。  
-離す位置をボタン外にすると実行をキャンセルできます。
+You can run the script with left mouse click.  
+It is executed at the moment you talked, not at the moment of pressing the mouse.  
+Execution can be canceled if the release position is set outside the button.
 
 
-#### メニューボタン
+#### menu button
 
-ボタンのタイプをMenu Buttonに指定することで、複数のコマンドを実行できるボタンを作成することができます。  
-少しだけ違うスクリプトなどをまとめて登録する事で分かりやすく、省スペース化するのに役立つかと思います。
+By specifying the button type as Menu Button, you can create buttons that can execute multiple commands.  
+It is easy to understand by registering scripts etc. which are slightly different only once, so I think that it will help to save space.
 
-![SiShelf](/images/11.gif)
+! [SiShelf] (/ images / 11.gif)
 
-ラベルはダブルクリックで編集することができます。  
-半角ハイフン(-)を4つ以上並べること仕切り線になります。
+You can edit labels by double clicking.  
+It becomes a dividing line to arrange four or more half width hyphens (-).
 
-### 仕切り線
+### Partition line
 
-タブ内の整理用に仕切り線を追加できます。
-縦横やラベルの有無、色などが自由に設定できます。  
-※ラベルは入力欄からフォーカスが外れるとプレビューに反映されます（バグ回避の為）
+You can add a divider line for organization in the tab.
+You can freely set the presence / absence, color, etc. of portrait, sideways and labels.  
+※ The label will be reflected in the preview when the focus deviates from the entry field (to avoid bugs)
 
-![SiShelf](/images/05.gif)
+! [SiShelf] (/ images / 05.gif)
 
 
-### タブ
+### tab
 
-マウス右クリックのコンテキストメニューからタブの追加、削除、リネームが行えます。  
-タブの順番はドラッグすることで入れ替えることが可能です。  
-コンテキストメニューのOptionからタブの高さ、フォントの大きさを設定することが可能です。  
+You can add, delete, and rename tabs from the context menu of the mouse right click.  
+Tab order can be changed by dragging.  
+It is possible to set tab height and font size from Option in the context menu.  
 
-![SiShelf](/images/06.gif)
+! [SiShelf] (/ images / 06.gif)
 
-### リファレンスタブ
+### Reference Tab
 
-マウス右クリックのコンテキストメニューのExternal referenceから特定のタブを外部ファイルから参照する設定にすることが可能です。  
-リファレンスタブにすることで、チームや社内など多人数で共通のツールを使用することが出来るなどの利点が考えられます。
+It is possible to set to reference a specific tab from an external file from the External reference of the mouse right-click context menu.  
+By using the reference tab, you can think of advantages such as being able to use tools common to many people such as teams and inside the company.
 
-![SiShelf](/images/14.gif)
+! [SiShelf] (/ images / 14.gif)
 
-読み込むデータはタブのエクスポート機能を利用してください。  
-リファレンスタブはタブにアイコンが表示され、内容の編集が行えなくなります。
+Please use the tab export function for the data to be read.  
+Icons are displayed on the tabs on the reference tab, and you can not edit the contents.
 
-### 操作
+### operation
 
-パーツはマウス中ドラッグで配置移動を行うことができます。
+Parts can be arranged and moved by dragging in the mouse.
 
-![SiShelf](/images/07.gif)
+! [SiShelf] (/ images / 07.gif)
 
-マウスの左ドラッグでシェルフに登録したパーツを矩形選択できます。
-複数選択した状態でマウス中ボタンドラッグで一括移動、コンテキストメニューから削除等が出来ます。  
-※現状複数選択に対応していないコマンドもあります。
+You can select rectangle the part registered to the shelf with the left mouse drag.
+With multiple selections, you can move all at once by middle mouse button dragging, delete from the context menu, etc.  
+There are also commands which are not compatible with multiple selection at present.
 
-![SiShelf](/images/08.gif)
+! [SiShelf] (/ images / 08.gif)
 
-### スナップ機能
+### Snap function
 
-Shelfのコンテキストメニュー>Option からスナップ機能を有効にすることができます。
+You can enable the snap function from Shelf's context menu> Option.
 
-![SiShelf](/images/10.gif)
+! [SiShelf] (/ images / 10. gif)
 
-縦横のスナップ間隔の指定、スナップ時のガイドグリッドの表示が設定できます。
+You can specify the vertical and horizontal snap intervals, and display the guide grid when snapping.
 
 
-### コンテキストメニュー
+### Context Menu
 
-マウス右クリックでコンテキストメニューを表示できます。
+You can display the context menu by right-clicking the mouse.
 
-メニュー     | 概要
------------| ------------
- Add button | ボタンを追加します
-Add partition | 仕切り線を追加します。
-Edit | 選択しているパーツの内容を編集します。（複数選択には対応していません。）
-Delete | 選択しているパーツを削除します。
-Copy | 選択しているパーツをコピーします。（複数選択には対応していません。）
-Paste | コピーしたパーツをクリックした位置に貼り付けます。
-Cut | 選択しているパーツを切り取ります。（複数選択には対応していません。）
-Tab > Add | タブを追加します。
-Tab > Rename | 現在のタブの名前を変更します。
-Tab > Delete |  現在のタブを削除します。タブを削除するとタブに配置していたパーツ情報もすべて削除されます。
-Tab > Export |  現在のタブの情報を外部ファイルに書き出します。
-Tab > Import |  外部ファイルから現在のタブにデータを読み込みます。既存のボタン等のパーツは削除されます。
-Tab > External reference |  現在のタブをリファレンスタブに切り替えます。
-Tab > Remove external reference |  リファレンスタブを取りやめます。
-Default setting > Button | ボタンを作る際の初期設定を行います。
-Default setting > Partition | 仕切り線を作る際の初期設定を行います。
-XPOP Setting | XPOPで表示する順番などの表示設定を行います。
-Option | シェルフのオプション設定を行います。
-Version information | バージョン情報を確認できます。
+Menu | Overview
+----------- | --------------
+ Add button | Add button
+Add partition | Add a divider.
+Edit | Edit the contents of the selected part. (Multiple selection is not supported.)
+Delete | Deletes the selected part.
+Copy | Copy the selected part. (Multiple selection is not supported.)
+Paste | Paste the copied part to the clicked position.
+Cut | Cut the selected part. (Multiple selection is not supported.)
+Add Tab> Add | tab.
+Tab> Rename | Changes the name of the current tab.
+Tab> Delete | Deletes the current tab. Deleting the tab also deletes all part information that was placed on the tab.
+Tab> Export | Writes information on the current tab to an external file.
+Tab> Import | Read data from the external file to the current tab. Parts such as existing buttons are deleted.
+Tab> External reference | Switches the current tab to the reference tab.
+Tab> Remove external reference | Cancels the reference tab.
+Default setting> Button | Performs initial settings when creating buttons.
+Default setting> Partition | Perform initial settings when creating divider lines.
+XPOP ​​Setting | Performs display settings such as the order to display in XPOP.
+Option | Set options for the shelf.
+Version information | Version information can be confirmed.
 
-### データの保存
+### Saving data
 
-シェルフ内のデータはパーツの追加、削除、移動などの操作を行ったタイミングで自動的に保存されます。  
-現状は元に戻す機能はありません。注意してください。  
+The data in the shelf is automatically saved at the timing of operations such as adding, deleting, moving parts.  
+Currently there is no undo function. be careful.  
 
-データは `C:\Users\ユーザー名\Documents\maya` にjsonファイルとして作成れます。  
-jsonファイルはテキストファイルなので、やろうと思えば内容を変更して保存することで手動での書き換えも可能です。  
-複数バージョンのMayaからも同一データが参照されます。現状はバージョン違いによる参照先変更機能はありません。
+Data is created as json file in `C: \ Users \ user name \ Documents \ maya`.  
+Since the json file is a text file, manual rewriting is also possible by changing the contents and saving it if you want to do.  
+The same data is also referenced from multiple versions of Maya. Currently there is no referencing destination changing function due to version difference.
 
 
-## コードから実行
+Run from ## code
 
-コードから実行する場合は以下の通りです。（上記コードをスクリプトエディタ(Pythonタブ)に貼り付けて実行 ）
+When executing from code, it is as follows. (Paste and paste the code above into the script editor (Python tab))
 
-### シェルフウインドウ表示
+### Shelf window display
 
-シンプルなコード例
-```python
+Simple code example
+`` `python
    import sishelf.shelf
-   sishelf.shelf.main()
-   
-```
+   sishelf.shelf.main ()
 
-フローティング状態のシェルフウインドウが表示されます。
+`` `
 
-引数名     |   引数型    |      デフォルト値 |      概要
------------| ------------| ------------| ------------
-x | int | None | ウインドウ表示X位置（省略時は画面中央）
-y | int | None | ウインドウ表示Y位置（省略時は画面中央）
-load_file | string  | None |  読み込みデータのファイルパスを指定（保存パスとしても利用される）
-edit_lock | boolean | False | 編集機能をロックするかどうか(Trueの場合は保存も行われない）
+The floating shelf window is displayed.
+
+Argument name | Argument type | Default value | Overview
+------------ | ------------ | ------------ | ------------ | --------------
+x | int | None | window display X position (center when screen is omitted)
+y | int | None | window display Y position (center when screen is omitted)
+load_file | string | None | Specify the file path of the read data (also used as the save path)
+edit_lock | boolean | False | Whether or not to lock the editing function (saving is not done in case of True)
 
 
-### シェルフウインドウ表示（マウスの位置）
+### Shelf window display (mouse position)
 
-シンプルなコード例
-```python
+Simple code example
+`` `python
    import sishelf.shelf  
-   sishelf.shelf.popup()  
-```
+   sishelf.shelf.popup ()  
+`` `
 
 
-### XPOPモード
+### XPOP mode
 
-シンプルなコード例
-```python
+Simple code example
+`` `python
    import sishelf.xpop  
-   sishelf.xpop.main()  
-```
+   sishelf.xpop.main ()  
+`` `
 
-引数名     |   引数型    |      デフォルト値 |      概要
------------| ------------| ------------| ------------
-tab | string | None | XPOPの第１階層を指定のタブの内容にする（指定されない場合はタブ名がXPOPの第１階層）
-load_file | string  | None |  読み込みデータのファイルパスを指定
-
-
-![SiShelf](/images/13.png)
-
-## 動作確認
-
-MAYA2014：バグで立ち上がらない
-
-MAYA2015：問題なし
-
-MAYA2016：問題なし
-
-MAYA2017：問題なし
+Argument name | Argument type | Default value | Overview
+------------ | ------------ | ------------ | ------------ | --------------
+tab | string | None | Makes the first hierarchy of XPOP the contents of the specified tab (if not specified, the tab name is the first hierarchy of XPOP)
+load_file | string | None | Specify the file path of the read data
 
 
-### 把握している不具合
+! [SiShelf] (/ images / 13.png)
 
-+ MAYA2017でボタンEidtウインドウ表示時、背景色指定が反映されていない（UIを手動更新すると反映される）
-+ XPOPモードをホットキーに割り当てている場合、連続して呼びだすと表示済みのメニューが残る場合がある。
+## Operation confirmation
+
+MAYA2014: I do not get up with a bug
+
+MAYA 2015: No problem
+
+MAYA2016: No problem
+
+MAYA2017: No problem
 
 
-## 改訂履歴
+### Understanding the problem
+
+When the button Eidt window is displayed with + MAYA2017, the background color designation is not reflected (reflected when UI is manually updated)
++ When XPOP mode is assigned to a hot key, the displayed menu may remain if you call it continuously.
+
+
+## Revision history
 
 2017/4/30
-+ バージョン1.7.1
-+ XPOPの見た目カスタマイズ機能実装
++ Version 1.7.1
+Implementation of appearance customization function of + XPOP
 
 2017/4/28
-+ バージョン1.7.0
-+ [Shelf]XPOP表示設定機能実装
-+ [XPOP]シェルフでの表示設定が反映されるように修正
++ Version 1.7.0
++ [Shelf] XPOP display setting function implementation
++ [XPOP] Fix to reflect display settings on shelf
 
 2017/4/26
-+ バージョン1.6.0
-+ [Shelf]タブの書き出し、読み込み機能実装
-+ [Shelf/XPOP]タブのリファレンス（外部参照）モード実装
++ Version 1.6.0
++ [Shelf] tab exporting and loading function implementation
++ Reference of [Shelf / XPOP] tab (external reference) mode Implementation
 
 2017/4/26
-+ バージョン1.5.3
-+ コードに2バイト文字があった場合、メニューボタン、XPOPが正常に動作しなかったバグを修正
++ Version 1.5.3
++ Fixed a bug where the menu button, XPOP did not work properly when there were double-byte characters in the code
 
 2017/4/25
-+ バージョン1.5.2
-+ ボタンを一度押したら文字がヘコんで戻らなかった不具合を修正
++ Version 1.5.2
+Fixed a bug that the character did not return after pressing the + button once
 
 2017/4/25
-+ バージョン1.5.1
-+ シェルフ、XPOP共に呼び出しコマンドに引数追加。[シェルフ]読み込みデータの指定、編集機能のロック　[XPOP]読み込みデータの指定、表示第１階層のタブ指定
++ Version 1.5.1
+Both + shelf and XPOP add arguments to the call command. [Shelf] Specification of reading data, locking of editing function [XPOP] Specifying reading data, display Tab designation of the first hierarchy
 
 2017/4/24
-+ バージョン1.5
-+ XPOPモード追加
++ Version 1.5
++ XPOP mode addition
 
 2017/4/23
-+ バージョン1.4
-+ メニューボタン形式に対応。
-+ タブの文字、高さの設定を追加
-+ コンテキストメニューにバージョン情報を追加
++ Version 1.4
++ Supports menu button type.
++ Add tab character and height setting
++ Add version information to context menu
 
 2017/4/20
-+ バージョン1.3.1
-+ 2017 起動時のドッキング状態の復元に対応
++ Version 1.3.1
++ 2017 Compatible with restoration of docking state at startup
 
 2017/4/17
-+ バージョン1.3
-+ マウス中ドラッグのパーツ移動がリアルタイムでプレビューされるように対応（配置が直感的に行いやすくなった）
-+ スナップ機能を実装
-+ マウス中クリック、右クリックでのパーツの選択機能を直感的になるように微調整
++ Version 1.3
++ Corresponds to real-time preview of part movements of drag in mouse (placement becomes easier to intuitive)
++ Implement snap function
++ Fine adjustment so that intuitive parts selection function by clicking in the mouse, right click
 
 2017/4/15
-+ バージョン1.2
-+ ボタンのラベル色指定に対応
-+ ボタンをクリックした瞬間にコードを実行していたのを、離した瞬間に実行するように仕様変更。また、ボタン外の位置で離すとキャンセルできるように対応。
++ Version 1.2
+Corresponds to the label color specification of the + button
+Changed the specification so that it executes the code at the moment of clicking the + button at the moment you release it. Also, responds so that you can cancel it when you release it outside the button.
 
 
 2017/4/13
-+ バージョン1.1.1
-+ 不要なPYTHONPATHの設定を削除。内部のインポートを明示的相対インポートに変更
-+ タブ内のパーツをEditした際に古いデータが残ってしまっていたバグを修正
-+ ラベルやツールチップに２バイト文字を入力している途中に環境によってMayaがクラッシュする問題に対応（フォーカスが外れると反映されるようになった）
++ Version 1.1.1
++ Delete unnecessary PYTHONPATH setting. Change internal imports to explicit relative import
++ Fixed bug that old data remained when editing parts in tab
++ Corresponds to the problem that Maya crashes depending on the environment while entering double-byte characters on labels and tooltips (It gets reflected when focus goes out)
 
 2017/4/12
-+ バージョン1.1
-+ PackageContents.xml形式に対応。
-+ メニューとホットキーエディタに情報を自動登録対応
-+ ボタンエディット後に背景色の適用が正常に行えていなかったのを修正
-+ ボタンエディット画面のプレビュー時に背景色が反映されていなかったバグを修正
-+ MAYA2017でシェルフへファイル投げ込みを行うとエラーになっていた問題を解消
-+ その他細かいMAYA2017用の対応
++ Version 1.1
+It corresponds to + PackageContents.xml format.
++ Automatic registration of information in menu and hotkey editor
+- Fixed that application of background color was not performed normally after editing button
++ Button Fixed a bug where the background color was not reflected when previewing the edit screen
++ Fixed the problem which caused error when file throwing to the shelf with MAYA2017
++ Others for fine detail MAYA2017
 
 2017/4/10  
-+ Maya2016でボタンの背景色指定が無効になっていたバグを修正
-+ 「準備」の項目にgithubからzipをダウンロードした際の注記を追加
+Fixed a bug where button background color specification was disabled in Maya 2016
++ Added note when downloading zip from github in "Preparation" item
 
 2017/4/9  
-+ バージョン1.0公開
++ Version 1.0 Published
 
 
-## ライセンス
+## license
 
-[MIT](https://github.com/mochio326/SiShelf/blob/master/LICENSE)
+[MIT] (https://github.com/mochio326/SiShelf/blob/master/LICENSE)

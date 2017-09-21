@@ -16,9 +16,9 @@ def main(tab=None, load_file=None):
     :return:
     '''
 
-    # 同名のウインドウが存在したら削除
-    # 1～2回は消えてくれるけど、その後は残ってしまうバグあり。
-    # 方法が違うのかもしれない…
+    # Delete if window with the same name exists
+    # 1 or 2 disappears but there are bugs that will remain afterwards.
+    # The method may be different ...
     ui = lib.get_ui(TITLE, 'QMenu')
     if ui is not None:
         ui.close()
@@ -39,7 +39,7 @@ def main(tab=None, load_file=None):
         return
 
     if tab is None:
-        # タブ名を第１階層にする
+        # Set the tab name to the first level
         for _vars in save_data:
             _m = _menu.addMenu(_vars['name'])
             if _vars['reference'] is not None:
@@ -55,7 +55,7 @@ def main(tab=None, load_file=None):
             if _vars['name'] == tab:
                 create_buttons_from_menu(_menu, _vars)
 
-    # マウス位置に出現
+    # Appear in mouse position
     cursor = QtGui.QCursor.pos()
 
     _sop = shelf_option.OptionData()
@@ -96,7 +96,7 @@ def main(tab=None, load_file=None):
 def create_buttons_from_menu(menu_, tab_data):
     if tab_data.get('button') is not None:
         for _var in tab_data['button']:
-            # 辞書からインスタンスのプロパティに代入
+            # Assign to instance property from dictionary
             data = button.ButtonData()
             for k, v in _var.items():
                 setattr(data, k, v)
@@ -108,10 +108,10 @@ def create_buttons_from_menu(menu_, tab_data):
                 menu_.addSeparator()
 
             if data.type_ == 0:
-                # 通常ボタン
+                # Normal button
                 button.normal_data_context(menu_, data)
             else:
-                # メニューボタン
+                # Menu button
                 _m = menu_.addMenu(data.label)
                 button.menu_data_context(_m, data.menu_data)
 
@@ -131,7 +131,7 @@ class XpopSettingDialog(QtWidgets.QDialog):
         self.view.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
         self.view.setAlternatingRowColors(True)
 
-        # ダイアログのOK/キャンセルボタンを用意
+        # Prepare dialog OK / Cancel button
         btns = QtWidgets.QDialogButtonBox(
             QtWidgets.QDialogButtonBox.Ok | QtWidgets.QDialogButtonBox.Cancel,
             QtCore.Qt.Horizontal, self)
@@ -231,6 +231,6 @@ class XpopSettingDialog(QtWidgets.QDialog):
     @staticmethod
     def show_dialog(parent=None, parts=None):
         dialog = XpopSettingDialog(parent, parts)
-        result = dialog.exec_()  # ダイアログを開く
+        result = dialog.exec_()  # Opens a dialog
         parts = dialog._get_check_data()
         return parts, result == QtWidgets.QDialog.Accepted

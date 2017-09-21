@@ -12,14 +12,14 @@ class SettingDialog(QtWidgets.QDialog, partition_setting_ui.Ui_Form):
         self.setupUi(self)
         self.setWindowTitle("Partition Setting")
 
-        # ダイアログのOK/キャンセルボタン
+        # Dialog OK / Cancel button
         self.buttonbox.accepted.connect(self.accept)
         self.buttonbox.rejected.connect(self.reject)
 
         self._data_input(data)
         self._preview_partition_drawing()
 
-        # コールバック関数の設定
+        # Setting the callback function
         func = self._redraw_ui
         self.spinbox_label_font_size.valueChanged.connect(func)
 
@@ -30,8 +30,8 @@ class SettingDialog(QtWidgets.QDialog, partition_setting_ui.Ui_Form):
         self.combo_style.currentIndexChanged.connect(func)
 
         '''
-        テキストエリアに日本語を入力中（IME未確定状態）にMayaがクラッシュする場合があった。
-        textChanged.connect をやめ、例えば focusOut や エンターキー押下を発火条件にすることで対応
+        There was a case that Maya crashed while entering Japanese into the text area (IME uncertain state).
+        Stop textChanged.connect, for example by pressing focusOut or enter key press to firing conditions
         '''
         # self.line_label.textChanged.connect(func)
 
@@ -62,7 +62,7 @@ class SettingDialog(QtWidgets.QDialog, partition_setting_ui.Ui_Form):
             self._preview_partition_drawing()
 
     def _data_input(self, data):
-        # データの入力
+        # Enter data
         self.line_label.setText(data.label)
 
         self.spinbox_btn_position_x.setValue(data.position_x)
@@ -108,10 +108,10 @@ class SettingDialog(QtWidgets.QDialog, partition_setting_ui.Ui_Form):
     @staticmethod
     def get_data(parent=None, data=None):
         '''
-        モーダルダイアログを開いてボタン設定とOKキャンセルを返す
+        Open a modal dialog and return button setting and OK cancel
         '''
         dialog = SettingDialog(parent, data)
-        result = dialog.exec_()  # ダイアログを開く
+        result = dialog.exec_()   # Opens a dialog
         data = dialog.get_partition_data_instance()
         return (data, result == QtWidgets.QDialog.Accepted)
 

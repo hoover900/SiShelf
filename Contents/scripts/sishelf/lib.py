@@ -40,7 +40,7 @@ def button_css(buttons, css):
     if isinstance(buttons, list) is False:
         buttons = [buttons]
     css += 'QToolButton:hover{background:#707070;}'
-    # Maya2016からはボタンのsetColorでは背景色が変わらなくなっていたのでスタイルシートに全て設定
+    #From Maya 2016 the background color of the button setColor has not changed so set it all in the style sheet
     for _b in buttons:
         css += '#' + _b.objectName() + '{'
         if _b.data.use_label_color is True:
@@ -50,7 +50,7 @@ def button_css(buttons, css):
         css += 'border-color:#606060; border-style:solid; border-width:1px;}'
 
         css += ':hover#' + _b.objectName() + '{background:#707070;}'
-        # 押した感を出す
+        # Give a sense of depression
         css += ':pressed#' + _b.objectName() + '{padding:1px -1px -1px 1px;}'
     return css
 
@@ -61,8 +61,8 @@ def get_ui(name, weight_type):
     for k, v in all_ui.items():
         if name not in k:
             continue
-        # 2017だとインスタンスの型をチェックしないと別の物まで入ってきてしまうらしい
-        # 2016以前だと比較すると通らなくなる…orz
+        #If it is 2017 it seems that if you do not check the type of the instance it will come in to another thing
+        #If it compares it before 2016 it will not pass ... orz
         if maya_api_version() >= 201700:
             if v.__class__.__name__ == weight_type:
                 return v
@@ -72,7 +72,7 @@ def get_ui(name, weight_type):
 
 
 # -----------------------
-# データ保存・読込関連
+# Data storage / reading related
 # -----------------------
 def load_floating_data():
     path = get_shelf_floating_filepath()
@@ -96,8 +96,8 @@ def floating_save(ui):
 
 def get_show_repr(vis_judgment=True):
     '''
-    UIの状態を取得
-    :param vis_judgment:表示状態を考慮するか
+    Get status of UI
+    : param vis_judgment: whether to consider the display state
     :return:
     '''
     dict_ = {}
@@ -135,7 +135,7 @@ def get_show_repr(vis_judgment=True):
 
 
 # -----------------------
-# path関連
+# path related
 # -----------------------
 def get_save_dir():
     _dir = os.environ.get('MAYA_APP_DIR')
@@ -156,7 +156,7 @@ def get_partition_default_filepath():
 
 def get_shelf_floating_filepath():
     return os.path.join(get_save_dir(), 'shelf_floating.json')
-    
+
 
 def get_shelf_option_filepath():
     return os.path.join(get_save_dir(), 'shelf_option.json')
@@ -175,10 +175,10 @@ def make_save_dir():
 
 
 # -----------------------
-# その他
+# Other
 # -----------------------
 # http://qiita.com/tadokoro/items/131268c9a0fd1cf85bf4
-# 日本語をエスケープさせずにjsonを読み書きする
+# Read and write json without escaping Japanese
 def not_escape_json_dump(path, data):
     text = json.dumps(data, sort_keys=True, ensure_ascii=False, indent=2)
     with open(path, 'w') as fh:
@@ -211,7 +211,7 @@ def escape(s, quoted='\'"\\', escape='\\'):
 
 def script_execute(code, source_type):
     '''
-    maya内でスクリプトを実行する
+    Execute the script within maya
     :param code: string
     :param source_type: 'mel' or 'python'
     :return:
@@ -222,7 +222,7 @@ def script_execute(code, source_type):
     cmds.deleteUI(window)
 
 
-# 実行関数を文字列から動的生成用文字列
+# Execution function from character string to dynamic generation character string
 _CONTEXT_FUNC = """
 def _f():
     if {0} is True:

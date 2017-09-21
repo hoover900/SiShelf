@@ -15,11 +15,11 @@ class ButtonWidget(QtWidgets.QToolButton):
         self.preview = preview
 
     def mouseMoveEvent(self, event):
-        # 中クリックだけドラッグ＆ドロップ可能にする
+        # Make drag & drop possible only by middle click
         if event.buttons() != QtCore.Qt.MidButton:
             return
-        # ドラッグ＆ドロップされるデータ形式を代入
-        mimedata = QtCore.QMimeData()
+        # Assign data format to be dragged and dropped
+        mimedata = QtCore.QMimeData ()
         drag = QtGui.QDrag(self)
         drag.setMimeData(mimedata)
         drag.exec_(QtCore.Qt.MoveAction)
@@ -28,12 +28,12 @@ class ButtonWidget(QtWidgets.QToolButton):
         QtWidgets.QToolButton.mousePressEvent(self, event)
 
     def mouseReleaseEvent(self, event):
-        # 左クリック
+        # Left click
         if self.preview is True:
             return
 
         if event.button() == QtCore.Qt.LeftButton:
-            # ボタン以外のところでマウスを離したらキャンセル扱い
+            #If you release the mouse except for the button, it will be canceled
             if event.pos().x() < 0 \
                     or event.pos().x() > self.width() \
                     or event.pos().y() < 0 \
@@ -57,9 +57,9 @@ class ButtonWidget(QtWidgets.QToolButton):
 
     def _context_menu(self):
         _menu = QtWidgets.QMenu()
-        # 項目名と実行する関数の設定
+        # Setting item names and functions to be executed
         menu_data_context(_menu, self.data.menu_data)
-        cursor = QtGui.QCursor.pos()
+        cursor = QtGui.QCursor.pos ()
         _menu.exec_(cursor)
 
 
@@ -103,7 +103,7 @@ class ButtonData(lib.PartsData):
     icon = property(doc='icon property')
     @icon.getter
     def icon(self):
-        # QIconは元サイズより大きくできない？
+        # QIcon can not be larger than the original size?
         # http://blogs.yahoo.co.jp/hmfjm910/3060875.html
         image = QtGui.QImage(self.icon_file)
         pixmap = QtGui.QPixmap.fromImage(image)
@@ -119,20 +119,20 @@ class ButtonData(lib.PartsData):
     @style.getter
     def style(self):
         if self.use_label is True and self.use_icon is False:
-            # テキストのみ
+            # Text Only
             return QtCore.Qt.ToolButtonTextOnly
         elif self.use_label is False and self.use_icon is True:
-            # アイコンのみ
+            # Icon only
             return QtCore.Qt.ToolButtonIconOnly
         elif self.use_label is True and self.use_icon is True:
             if self.icon_style == 0:
-                # アイコンの横にテキスト
+                # Text next to the icon
                 return QtCore.Qt.ToolButtonTextBesideIcon
             else:
-                # アイコンの下にテキスト
+                # Text below the icon
                 return QtCore.Qt.ToolButtonTextUnderIcon
         else:
-            # 例外はとりあえずテキストのみ
+            # For exceptions, text only
             return QtCore.Qt.ToolButtonTextOnly
 
 
@@ -206,7 +206,7 @@ def menu_data_context(menu, data):
             menu.addSeparator()
             continue
 
-        # codeは文字をエスケープしておかないとエラーになるので注意
+        # Note that the code is in error If you do not escape character
         exec (lib._CONTEXT_FUNC.format(
             _d['use_externalfile'],
             _d['externalfile'],
@@ -217,7 +217,7 @@ def menu_data_context(menu, data):
 
 
 def normal_data_context(menu, data):
-        # codeは文字をエスケープしておかないとエラーになるので注意
+        # Note that the code is in error If you do not escape character
         exec (lib._CONTEXT_FUNC.format(
             data.use_externalfile,
             data.externalfile,

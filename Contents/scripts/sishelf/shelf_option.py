@@ -11,7 +11,7 @@ class OptionDialog(QtWidgets.QDialog, shelf_option_ui.Ui_Form):
         self.setupUi(self)
         self.setWindowTitle("Shelf Option")
 
-        # ダイアログのOK/キャンセルボタン
+        # Dialog OK / Cancel button
         self.buttonbox.accepted.connect(self.accept)
         self.buttonbox.rejected.connect(self.reject)
 
@@ -49,7 +49,7 @@ class OptionDialog(QtWidgets.QDialog, shelf_option_ui.Ui_Form):
             self.xpop_separator_color = color.name()
 
     def _data_input(self):
-        # データの入力
+        # Enter data
         data = OptionData()
         self.spinbox_snap_width.setValue(data.snap_width)
         self.spinbox_snap_height.setValue(data.snap_height)
@@ -90,10 +90,10 @@ class OptionDialog(QtWidgets.QDialog, shelf_option_ui.Ui_Form):
     @staticmethod
     def open(parent=None):
         '''
-        モーダルダイアログを開いてボタン設定とOKキャンセルを返す
+        Open a modal dialog and return button setting and OK cancel
         '''
         dialog = OptionDialog(parent)
-        result = dialog.exec_()  # ダイアログを開く
+        result = dialog.exec_()   # Opens a dialog
         if result == QtWidgets.QDialog.Accepted:
             dialog.data_save()
         data = OptionData()

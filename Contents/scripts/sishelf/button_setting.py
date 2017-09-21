@@ -86,12 +86,12 @@ class SettingDialog(QtWidgets.QDialog, button_setting_ui.Ui_Form):
 
         self.menulist_widget = None
 
-        # ダイアログのOK/キャンセルボタン
+        # Dialog OK / Cancel button
         self.buttonbox.accepted.connect(self.accept)
         self.buttonbox.rejected.connect(self.reject)
 
-        #オリジナルの行番号付きLineEditに差し替える
-        #designerでのカスタムウィジェットへの差し替えが上手くいかなかったので。
+        # Replace with original line numbered LineEdit
+        # Replacing the custom widget with designer did not work.
         self.text_script_code = self._replace_widget(
             self.verticalLayout_4,
             self.text_script_code,
@@ -104,7 +104,7 @@ class SettingDialog(QtWidgets.QDialog, button_setting_ui.Ui_Form):
 
         self.button_maya_icon.setIcon(QtGui.QIcon(':/mayaIcon.png'))
 
-        # コールバック関数の設定
+        # Setting the callback function
         func = self._redraw_ui
         self.checkbox_tooltip.stateChanged.connect(func)
         self.line_icon_file.textChanged.connect(func)
@@ -135,8 +135,8 @@ class SettingDialog(QtWidgets.QDialog, button_setting_ui.Ui_Form):
 
         self.combo_type.currentIndexChanged.connect(self._type_changed)
 
-        # テキストエリアに日本語を入力中（IME未確定状態）にMayaがクラッシュする場合があった。
-        # textChanged.connect をやめ、例えば focusOut や エンターキー押下を発火条件にすることで対応
+        # Maya may crash while entering Japanese in the text area (IME undetermined state).
+        # Stop the textChanged.connect, for example by pressing focusOut or press enter key to firing conditions
         # self.text_label.textChanged.connect(func)
         # self.text_tooltip.textChanged.connect(func)
 
@@ -252,9 +252,9 @@ class SettingDialog(QtWidgets.QDialog, button_setting_ui.Ui_Form):
 
     def _keep_script_commands_data(self):
         _idx = self.combo_type.currentIndex()
-        if _idx == 0:  # ノーマルボタン
+        if _idx == 0: # Normal button
             _d = self.normal_data
-        else:  # メニューボタン
+        else :   # Menu button
             _list_idx = self.menulist_widget.currentIndex()
             _d = self.menu_data[_list_idx.row()]
 
@@ -265,9 +265,9 @@ class SettingDialog(QtWidgets.QDialog, button_setting_ui.Ui_Form):
 
     def _apply_script_commands_data(self):
         _idx = self.combo_type.currentIndex()
-        if _idx == 0:  # ノーマルボタン
+        if _ idx ==  0 :   # Normal button
             _d = self.normal_data
-        else:  # メニューボタン
+        else :   # Menu button
             _list_idx = self.menulist_widget.currentIndex()
             if len(self.menu_data) == 0:
                 self._menulist_add()
@@ -277,11 +277,11 @@ class SettingDialog(QtWidgets.QDialog, button_setting_ui.Ui_Form):
         self.line_externalfile.setText(_d['externalfile'])
         index = self.combo_script_language.findText(_d['script_language'])
         self.combo_script_language.setCurrentIndex(index)
-        # checkbox_externalfileを最後に適用しないとline_externalfileが正常に反映されなかった。
+        line_externalfile was not reflected correctly unless # checkbox_externalfile was last applied.
         self.checkbox_externalfile.setChecked(_d['use_externalfile'])
 
     def _redraw_ui(self):
-        #外部ファイルを指定されている場合は言語を強制変更
+        # Force change language if external file is specified
         if self.checkbox_externalfile.isChecked() is True:
             _path = self.line_externalfile.text()
             _suffix = QtCore.QFileInfo(_path).completeSuffix()
@@ -311,7 +311,7 @@ class SettingDialog(QtWidgets.QDialog, button_setting_ui.Ui_Form):
             self._preview_button_drawing()
 
     def _data_input(self, data):
-        # データの入力
+        # Enter data
         self.text_label.setPlainText(data.label)
         self.text_tooltip.setPlainText(data.tooltip)
         self.checkbox_tooltip.setChecked(data.bool_tooltip)
@@ -341,7 +341,7 @@ class SettingDialog(QtWidgets.QDialog, button_setting_ui.Ui_Form):
         self.combo_type.setCurrentIndex(data.type_)
         self.menu_data = copy.deepcopy(data.menu_data)
 
-        # ノーマルボタン用のデータを保持
+        # Retain data for normal button
         _dict = button.make_menu_button_dict()
         _dict['code'] = data.code
         _dict['use_externalfile'] = data.use_externalfile
@@ -363,7 +363,7 @@ class SettingDialog(QtWidgets.QDialog, button_setting_ui.Ui_Form):
             child.deleteLater()
         btn = button.create(self, self.get_button_data_instance(), True)
 
-        # センタリング用のspacerを仕込むとmayaが落ちるようになったのでひとまず封印
+        # If you put up a spacer for centering, maya has fallen, so seal down for the moment
         # spacer = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         #self.button_preview.addItem(spacer)
         self.button_preview.addWidget(btn)
@@ -435,10 +435,10 @@ class SettingDialog(QtWidgets.QDialog, button_setting_ui.Ui_Form):
     @staticmethod
     def get_data(parent=None, data=None):
         '''
-        モーダルダイアログを開いてボタン設定とOKキャンセルを返す
+        Open a modal dialog and return button setting and OK cancel
         '''
         dialog = SettingDialog(parent, data)
-        result = dialog.exec_()  # ダイアログを開く
+        result = dialog.exec_ ()   # Opens a dialog
         data = dialog.get_button_data_instance()
         dialog.normal_data = None
         return (data, result == QtWidgets.QDialog.Accepted)
@@ -448,18 +448,18 @@ class ListDelegate(QtWidgets.QItemDelegate):
     changeValue = QtCore.Signal(int, str)
 
     def createEditor(self, parent, option, index):
-        # 編集する時に呼ばれるWidgetを設定
+        # Set Widget called when editing
         editor = QtWidgets.QLineEdit(parent)
         return editor
 
     def setEditorData(self, LineEdit, index):
-        # 編集されたときに呼ばれ、セットされた値をWidgetにセットする?
+        # Called when edited, set the value set to Widget?
         value = index.model().data(index, QtCore.Qt.EditRole)
         LineEdit.setText(value)
 
     def setModelData(self, LineEdit, model, index):
         value = LineEdit.text()
-        # 編集情報をSignalで発信する
+        # Send edit information with Signal
         self.changeValue.emit(index.row(), value)
         model.setData(index, value, QtCore.Qt.EditRole)
 
@@ -475,7 +475,7 @@ class DccIconViewer(QtWidgets.QDialog):
         self.setAttribute(QtCore.Qt.WA_DeleteOnClose, True)
         self.view.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
 
-        # ダイアログのOK/キャンセルボタンを用意
+        # Prepare dialog OK / Cancel button
         btns = QtWidgets.QDialogButtonBox(
             QtWidgets.QDialogButtonBox.Ok | QtWidgets.QDialogButtonBox.Cancel,
             QtCore.Qt.Horizontal, self)
@@ -513,13 +513,13 @@ class DccIconViewer(QtWidgets.QDialog):
     @staticmethod
     def get_icon_name(parent=None):
         dialog = DccIconViewer(parent)
-        result = dialog.exec_()  # ダイアログを開く
-        name = dialog.icon_name()  # キャンバスサイズを取得
+        result = dialog.exec_()  # Opens a dialog
+        name = dialog.icon_name()  # Get the canvas size
         return (name, result == QtWidgets.QDialog.Accepted)
 
 
 # #################################################################################################
-# Maya依存の部分
+# Maya dependent parts
 # #################################################################################################
 def get_icon_list():
     return cmds.resourceManager(nameFilter='*.*')

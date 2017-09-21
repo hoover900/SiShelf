@@ -12,17 +12,17 @@ class PartitionWidget(QtWidgets.QWidget):
         super(PartitionWidget, self).__init__(parent)
 
     def mouseMoveEvent(self, event):
-        # 中クリックだけドラッグ＆ドロップ可能にする
+        # Make drag & drop possible only by middle click
         if event.buttons() != QtCore.Qt.MidButton:
             return
-        # ドラッグ＆ドロップされるデータ形式を代入
+        # Assign data format to be dragged and dropped
         mimedata = QtCore.QMimeData()
         drag = QtGui.QDrag(self)
         drag.setMimeData(mimedata)
         drag.exec_(QtCore.Qt.MoveAction)
 
     def paintEvent(self, event):
-        # スタイルシートを利用
+        # Use style sheet
         super(PartitionWidget, self).paintEvent(event)
         opt = QtWidgets.QStyleOption()
         opt.initFrom(self)
@@ -30,7 +30,7 @@ class PartitionWidget(QtWidgets.QWidget):
         s = self.style()
         s.drawPrimitive(QtWidgets.QStyle.PE_Widget, opt, p, self)
 
-        # ラベルとラインの描画
+        # Draw labels and lines
         painter = QtGui.QPainter(self)
 
         color = QtGui.QColor(self.data.color)
@@ -41,7 +41,7 @@ class PartitionWidget(QtWidgets.QWidget):
         font.setPointSize(self.data.label_font_size)
         painter.setFont(font)
 
-        # ウィジェットの大きさを計算　上下左右マージンも考慮
+        # Calculate the size of the widget Calculate the top, bottom, left and right margin
         _w = self.data.line_length
         _h = self.data.margin + int(self.data.line_width * 1.5)
         if self.data.use_label is True:
@@ -53,12 +53,12 @@ class PartitionWidget(QtWidgets.QWidget):
         _w += self.data.margin * 2
         _h += self.data.margin * 2
 
-        # ラインの配置ポイントを算出
+        # Calculate placement point of line
         _line_start_point = self.data.margin
         _line_end_point = self.data.line_length + self.data.margin
 
         if self.data.style == 0:
-            # 水平
+            # Level
             self.resize(_w, _h)
             if self.data.use_label is True:
                 _line_height_point = self.data.label_font_size + round(self.data.margin + self.data.line_width / 2)
@@ -75,7 +75,7 @@ class PartitionWidget(QtWidgets.QWidget):
                 painter.drawText(QtCore.QPoint(0,  self.data.label_font_size), self.data.label)
 
         elif self.data.style == 1:
-            # 垂直
+            # Vertical
             self.resize(_h, _w)
             line = QtCore.QLine(
                 QtCore.QPoint(self.data.margin, _line_start_point),
@@ -92,7 +92,7 @@ class PartitionData(lib.PartsData):
     def __init__(self):
         super(PartitionData, self).__init__()
         self.color = '#aaaaaa'
-        self.style = 0  # 0:水平 1:垂直
+        self.style = 0 # 0: level 1: vertical
         self.line_width = 1
         self.line_length = 150
         self.margin = 2

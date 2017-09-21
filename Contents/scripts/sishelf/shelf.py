@@ -16,14 +16,14 @@ import re
 import copy
 
 if lib.maya_api_version() < 201500:
-    # 2014以下のバージョン用
+    #For version below 2014
     MayaQWidgetDockableMixin = object
 
 elif lib.maya_api_version() < 201700:
     from maya.app.general.mayaMixin import MayaQWidgetDockableMixin
 
 elif 201700 <= lib.maya_api_version() and lib.maya_api_version() < 201800:
-    # TODO: 新バージョンが出たら確認すること
+    #  TODO : Check if new version comes out
     from .patch import m2017
     MayaQWidgetDockableMixin = m2017.MayaQWidgetDockableMixin2017
 
@@ -33,15 +33,15 @@ else:
 
 class SiShelfWeight(MayaQWidgetDockableMixin, QtWidgets.QTabWidget):
     URL = "https://github.com/mochio326/SiShelf"
-    VAR = '1.7.1'
-    PEN_WIDTH = 1  # 矩形の枠の太さ
+    VAR  =  '1.7.1'
+    PEN_WIDTH = 1  # Thickness of rectangular frame
 
     def __init__(self, parent=None, load_file=None, edit_lock=False):
         super(SiShelfWeight, self).__init__(parent)
-        #メモリ管理的おまじない
+        # Memory management funny
         self.setAttribute(QtCore.Qt.WA_DeleteOnClose, True)
         self.setSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
-        # オブジェクト名とタイトルの変更
+        # Change object name and title
         self.setObjectName(lib.TITLE)
         self.setWindowTitle(lib.TITLE)
 
@@ -85,7 +85,7 @@ class SiShelfWeight(MayaQWidgetDockableMixin, QtWidgets.QTabWidget):
     # -----------------------
     def _context_menu(self, event):
         _menu = QtWidgets.QMenu()
-        # 項目名と実行する関数の設定
+        # Setting item names and functions to be executed
         if self.edit_lock is False:
             if self.currentWidget().reference is None:
                 _menu.addAction('Add button', self._add_button)
@@ -122,7 +122,7 @@ class SiShelfWeight(MayaQWidgetDockableMixin, QtWidgets.QTabWidget):
         _menu.addAction('Version information', self._info)
 
         self._select_cursor_pos_parts()
-        # マウス位置に出現
+        # Appear in mouse position
         cursor = QtGui.QCursor.pos()
         _menu.exec_(cursor)
 
@@ -156,7 +156,7 @@ class SiShelfWeight(MayaQWidgetDockableMixin, QtWidgets.QTabWidget):
         self.repaint()
         self.save_all_tab_data()
         self._set_stylesheet()
-        # カットの場合は貼り付けは一度だけ
+        # In the case of cut, paste only once
         if self._cut_flag is True:
             self._clipboard = None
             self._cut_flag = False
@@ -195,9 +195,9 @@ class SiShelfWeight(MayaQWidgetDockableMixin, QtWidgets.QTabWidget):
             parts.data = data
 
         '''
-        XPOPの為にウィジェットの順番を変えたくないので、utton.updateにてボタンの描画設定を変更してみたものの
-        縦横サイズ固定でない場合、ボタンのサイズが適切に変化しなかった。
-        その対策として、全てのパーツを作り直すことでこれを回避している。
+        I do not want to change the order of the widgets for XPOP, so I tried to change the drawing setting of the button with utton.update
+        When the vertical and horizontal sizes are not fixed, the size of the button did not change properly.
+        As a countermeasure to this, we avoid this by recreating all the parts.
         '''
         # self.repaint()
         _data = self.currentWidget().get_all_parts_dict()
@@ -362,7 +362,7 @@ class SiShelfWeight(MayaQWidgetDockableMixin, QtWidgets.QTabWidget):
         if self.currentWidget().reference is not None:
             _p = self.currentWidget().reference
         else:
-            # 外部参照を初めて設定する場合
+            # Setting up external references for the first time
             _status = QtWidgets.QMessageBox.question(
                 self, 'Confirmation',
                 'Existing parts of the tab will be deleted. Are you sure to execute?',
@@ -467,8 +467,8 @@ class SiShelfWeight(MayaQWidgetDockableMixin, QtWidgets.QTabWidget):
         _mimedata = event.mimeData()
 
         if _mimedata.hasText() is True or _mimedata.hasUrls() is True:
-            # ドロップ位置をボタンの左上にする
-            # ドロップ位置からタブの高さを考慮する
+            # Move the drop position to the upper left of the button
+            # Consider tab height from drop position
             x = event.pos().x()
             y = event.pos().y() - self.sizeHint().height()
             if y < 0:
@@ -482,13 +482,13 @@ class SiShelfWeight(MayaQWidgetDockableMixin, QtWidgets.QTabWidget):
                 data.code = _mimedata.text()
 
             if _mimedata.hasUrls() is True:
-                #複数ファイルの場合は最後のファイルが有効になる
+                # Last file becomes valid for multiple files
                 for url in _mimedata.urls():
                     if hasattr(url, 'path'):  # PySide
                         _path = re.sub("^/", "", url.path())
                     else:  # PySide2
                         _path = re.sub("^file:///", "", url.url())
-                # 外部エディタから投げ込んだ場合もこちらに来るので回避
+                # If you throw in from an external editor also come around here
                 if _path != '':
                     data.externalfile = _path
                     data.use_externalfile = True
@@ -510,14 +510,14 @@ class SiShelfWeight(MayaQWidgetDockableMixin, QtWidgets.QTabWidget):
         elif isinstance(event.source(), (button.ButtonWidget, partition.PartitionWidget)):
 
             if len(self._selected) > 1:
-                # 複数選択されていたらまとめて移動を優先
+                # If multiple selections are made, move is prioritized collectively
                 self._selected_parts_move(event.pos())
             else:
                 self._parts_move(event.source(), event.pos())
                 self.save_all_tab_data()
                 self._origin = QtCore.QPoint()
 
-            # よくわからん
+            # I do not know well
             event.setDropAction(QtCore.Qt.MoveAction)
             event.accept()
 
@@ -527,7 +527,7 @@ class SiShelfWeight(MayaQWidgetDockableMixin, QtWidgets.QTabWidget):
     def dragMoveEvent(self, event):
         if self.edit_lock is True or self.currentWidget().reference is not None:
             return
-        # パーツを移動中の描画更新
+        # Drawing update while moving parts
         if len(self._selected) > 0:
             self._parts_moving = True
             self._selected_parts_move(event.pos(), False, False)
@@ -535,8 +535,8 @@ class SiShelfWeight(MayaQWidgetDockableMixin, QtWidgets.QTabWidget):
 
     def dragEnterEvent(self, event):
         '''
-        ドラッグされたオブジェクトを許可するかどうかを決める
-        ドラッグされたオブジェクトが、テキストかファイルなら許可する
+        Decide whether to allow dragged objects
+        Allow if dragged object is text or file
         '''
         if self.edit_lock is True or self.currentWidget().reference is not None:
             return
@@ -570,7 +570,7 @@ class SiShelfWeight(MayaQWidgetDockableMixin, QtWidgets.QTabWidget):
         if self._band is not None:
             self._band = QtCore.QRect(self._origin, event.pos())
         else:
-            # パーツを移動中の描画更新
+            # Drawing update while moving parts
             if len(self._selected) > 0:
                 self._parts_moving = True
                 self._selected_parts_move(event.pos(), False, False)
@@ -590,7 +590,7 @@ class SiShelfWeight(MayaQWidgetDockableMixin, QtWidgets.QTabWidget):
             self._origin = QtCore.QPoint()
             self._band = None
 
-        # 選択中のパーツを移動
+        # Move selected part
         if event.button() == QtCore.Qt.MiddleButton:
             self._selected_parts_move(event.pos())
 
@@ -598,7 +598,7 @@ class SiShelfWeight(MayaQWidgetDockableMixin, QtWidgets.QTabWidget):
         self.repaint()
 
     def paintEvent(self, event):
-        # 矩形範囲の描画
+        # Draw a rectangular area
         if self._band is not None:
             painter = QtGui.QPainter(self)
             color = QtGui.QColor(255, 255, 255, 125)
@@ -606,7 +606,7 @@ class SiShelfWeight(MayaQWidgetDockableMixin, QtWidgets.QTabWidget):
             painter.setPen(pen)
             painter.drawRect(self._band)
             painter.restore()
-        # ガイドグリッドの描画
+        # Draw a guide grid
         if self._parts_moving is True \
                 and self._shelf_option.snap_active is True\
                 and self._shelf_option.snap_grid is True:
@@ -614,12 +614,12 @@ class SiShelfWeight(MayaQWidgetDockableMixin, QtWidgets.QTabWidget):
 
     def closeEvent(self, event):
         if self.edit_lock is False:
-            # 2017以前だとhideEventにすると正常にウインドウサイズなどの情報が取ってこれない
+            # If it is 2017 or earlier, hideEvent makes it impossible to get information such as window size normally
             if lib.maya_api_version() < 201700:
                 if self._floating_save is False:
                     lib.floating_save(self)
                 self._floating_save = True
-        # superだと2017でエラーになったため使用中止
+        # super because it caused an error in 2017 and is no longer in use
         # super(SiShelfWeight, self).closeEvent(event)
         QtWidgets.QWidget.close(self)
 
@@ -627,7 +627,7 @@ class SiShelfWeight(MayaQWidgetDockableMixin, QtWidgets.QTabWidget):
     # Others
     # -----------------------
     def _selected_parts_move(self, after_pos, save=True, data_pos_update=True):
-        # 選択中のパーツを移動
+        # Move selected part
         if len(self._selected) > 0:
             for p in self._selected:
                 self._parts_move(p, after_pos, data_pos_update)
@@ -636,7 +636,7 @@ class SiShelfWeight(MayaQWidgetDockableMixin, QtWidgets.QTabWidget):
                 self.save_all_tab_data()
 
     def _parts_move(self, parts, after_pos, data_pos_update=True):
-        # ドラッグ中に移動した相対位置を加算
+        # Add the relative position moved during dragging
         _rect = QtCore.QRect(self._origin, after_pos)
         _x = parts.data.position_x + _rect.width()
         _y = parts.data.position_y + _rect.height()
@@ -662,7 +662,7 @@ class SiShelfWeight(MayaQWidgetDockableMixin, QtWidgets.QTabWidget):
         chidren.extend(self.currentWidget().findChildren(partition.PartitionWidget))
 
         for child in chidren:
-            # 矩形内に位置しているかを判定
+            # Determine whether it is located within a rectangle
             if rect.intersects(self._get_parts_absolute_geometry(child)) is False:
                 continue
             self._selected.append(child)
@@ -680,17 +680,17 @@ class SiShelfWeight(MayaQWidgetDockableMixin, QtWidgets.QTabWidget):
     def _set_stylesheet(self):
         css = ''
 
-        # タブ
+        # Tab
         css += 'QTabBar::tab { ' \
                 'height: ' + str(self._shelf_option.tab_height) + 'px;' \
                 'font-size: ' + str(self._shelf_option.tab_label_size) + 'pt;' \
                 '}'
 
-        # ボタン
+        # Button
         buttons = self.currentWidget().findChildren(button.ButtonWidget)
         css = lib.button_css(buttons, css)
 
-        # 選択中のパーツを誇張
+        # Exaggerate selected parts
         if self.edit_lock is True:
             pass
         elif self.currentWidget().reference is None:
@@ -704,22 +704,22 @@ class SiShelfWeight(MayaQWidgetDockableMixin, QtWidgets.QTabWidget):
 
     def _select_cursor_pos_parts(self):
         '''
-        複数選択されていなければマウス直下のパーツを選択する
+        If not selected multiple parts are selected directly under the mouse
         :return:
         '''
         cursor = QtGui.QCursor.pos()
         _ui = lib.get_show_repr()
         pos = QtCore.QPoint(cursor.x() - _ui['x'], cursor.y() - _ui['y'])
-        # タブバーの高さを考慮 （ただ実際のタブの大きさと数ピクセルずれてる気がする
+        # Feel that shifted the size and number of pixels to the consideration of the height of the tab bar (just the actual tab
         self._context_pos = QtCore.QPoint(pos.x(), pos.y() - self.sizeHint().height())
-        # パーツが矩形で選択されていなければマウス位置の下のボタンを選択しておく
-        # 1個選択状態の場合は選択し直した方が直感的な気がする
+        # If the part is not selected as a rectangle, select the button under the mouse position
+        #In the case of 1 selected state, it seems intuitive is better if you select it again
         if len(self._selected) <= 1:
             _l = len(self._selected)
             _s = self._selected
 
             rect = QtCore.QRect(pos, pos)
-            # ドッキングしてる状態だとタブの高さを考慮したほうがいい！？なんじゃこの挙動は…
+            # In the docking state it is better to consider tab height! What? What is this behavior ...
             if self.isFloating() is False and self.dockArea() is not None:
                 rect = QtCore.QRect(self._context_pos, self._context_pos)
             self._get_parts_in_rectangle(rect)
@@ -731,7 +731,7 @@ class SiShelfWeight(MayaQWidgetDockableMixin, QtWidgets.QTabWidget):
             self.repaint()
 
     def _draw_snap_gide(self):
-        # スナップガイドの表示
+        # Display snap guide
         painter = QtGui.QPainter(self)
         color = QtGui.QColor(255, 255, 255, 40)
         pen = QtGui.QPen(color, )
@@ -742,12 +742,12 @@ class SiShelfWeight(MayaQWidgetDockableMixin, QtWidgets.QTabWidget):
         snap_unit_y = self._shelf_option.snap_height
         _tab_h = self.sizeHint().height() - 4
 
-        # 横線
+        # Horizontal line
         for i in range(self.height() / snap_unit_y):
             _h = snap_unit_y * i + _tab_h
             line = QtCore.QLine(QtCore.QPoint(0, _h), QtCore.QPoint(self.width(), _h))
             painter.drawLine(line)
-        # 縦線
+        # Vertical line
         for i in range(self.width() / snap_unit_x + 1):
             _w = snap_unit_x * i + 1
             line = QtCore.QLine(QtCore.QPoint(_w, _tab_h), QtCore.QPoint(_w, self.height() + _tab_h))
@@ -761,16 +761,16 @@ class ShelfTabWeight(QtWidgets.QWidget):
         self.reference = None
 
     def get_all_parts_dict(self):
-        # 指定のタブ以下にあるパーツを取得
+        # Acquire parts under specified tab
         dict_ = {}
-        # ボタンのデータ
+        # Button data
         _b = []
         _ls = self.get_all_button()
         for child in _ls:
             _b.append(vars(child))
         dict_['button'] = _b
 
-        # 仕切り線のデータ
+        # Partition line data
         _p = []
         _ls = self.get_all_partition()
         for child in _ls:
@@ -782,7 +782,7 @@ class ShelfTabWeight(QtWidgets.QWidget):
     def create_parts_from_dict(self, data):
         if data.get('button') is not None:
             for _var in data['button']:
-                # 辞書からインスタンスのプロパティに代入
+                # Assign to instance property from dictionary
                 _d = button.ButtonData()
                 for k, v in _var.items():
                     setattr(_d, k, v)
@@ -790,7 +790,7 @@ class ShelfTabWeight(QtWidgets.QWidget):
 
         if data.get('partition') is not None:
             for _var in data['partition']:
-                # 辞書からインスタンスのプロパティに代入
+                # Assign to instance property from dictionary
                 _d = partition.PartitionData()
                 for k, v in _var.items():
                     setattr(_d, k, v)
@@ -831,7 +831,7 @@ class ShelfTabWeight(QtWidgets.QWidget):
 
 
 def make_ui(load_file=None, edit_lock=False):
-    # 同名のウインドウが存在したら削除
+    # Delete if window with the same name exists
     ui = lib.get_ui(lib.TITLE, 'SiShelfWeight')
     if ui is not None:
         ui.close()
@@ -855,7 +855,7 @@ def make_quit_app_job():
 
 def restoration_docking_ui():
     '''
-    ドッキングした状態のUIを復元する
+    Restore docked UI
     :return:
     '''
     path = lib.get_shelf_docking_filepath()
@@ -877,13 +877,13 @@ def restoration_docking_ui():
 
 
 def popup():
-    # マウス位置にポップアップ
+    # Pop-up at mouse position
     cursor = QtGui.QCursor.pos()
     main(x=cursor.x(), y=cursor.y())
 
 
 def main(x=None, y=None, load_file=None, edit_lock=False):
-    # 画面中央に表示
+    # Display in center of screen
     ui = make_ui(load_file=load_file, edit_lock=edit_lock)
     _floating = lib.load_floating_data()
     if _floating:
@@ -896,15 +896,15 @@ def main(x=None, y=None, load_file=None, edit_lock=False):
     if lib.maya_api_version() > 201300:
 
         ui_script = "import sishelf.shelf;sishelf.shelf.restoration_workspacecontrol()"
-        # 保存されたデータのウインドウ位置を使うとウインドウのバーが考慮されてないのでズレる
+        # If you use the window position of the saved data, the window of the window is not taken into consideration, so it will be shifted
         opts = {
             "dockable": True,
             "floating": True,
             "width": width,
             "height": height,
-            # 2017でのバグ回避のため area: left で決め打ちしてしまっているが
-            # 2017未満ではrestoration_docking_ui で area を再設定するため問題ない
-            # 2017 では workspace layout にどこにいるか等の実体がある
+            # Although I have decided it by area: left to avoid a bug in # 2017
+            # If it is less than # 2017, there is no problem because the area is reset by restoration_docking_ui
+            # In 2017 there is an entity such as where you are in the workspace layout
             "area": "left",
             "allowedArea": None,
             "x": x,
@@ -923,7 +923,7 @@ def main(x=None, y=None, load_file=None, edit_lock=False):
 
         ui.setDockableParameters(**opts)
 
-        # 2017だとworkspaceControlコマンドでUI表示されるのでshowはいらない
+        #If it is 2017, it will be displayed as UI with the workspaceControl command, so there is no need to show
         if lib.maya_api_version() > 201700:
             ui.show()
 
@@ -933,10 +933,10 @@ def main(x=None, y=None, load_file=None, edit_lock=False):
 
 
 def restoration_workspacecontrol():
-    # workspacecontrolの再現用
+    # For reproducing workspacecontrol
     ui = make_ui()
     ui_script = "import sishelf.shelf;sishelf.shelf.restoration_workspacecontrol()"
-    # 保存されたデータのウインドウ位置を使うとウインドウのバーが考慮されてないのでズレる
+    # If you use the window position of the saved data, the window of the window is not taken into consideration, so it will be shifted
     opts = {
         "dockable": True,
         "floating": False,

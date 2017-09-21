@@ -149,7 +149,7 @@ def jpn(string):
 def execute():
     menu_setup()
     register_sishelf_runtime_command()
-    # 2017以降ではworkspaceControlがあるので記録と復元は必要ない
+    #  Since 2017, there is workspaceControl so you do not need to record and restore
     if lib.maya_api_version() < 201700:
         register_events()
         restore_shelf()
